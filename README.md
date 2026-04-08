@@ -5,9 +5,11 @@ I downloaded Unity and learned how to use GitHub more before checking the steps 
 THE TUTORIAL:
 
 Setting up the game
+
 i made a new 3d empty project and followed the first steps and created a new scene and made sure the layout is set to default before creating the ground of the game, the player, then the lighting system. i learned how to add new objects to the scene and edit them to make them look more realistic. Finishing those first steps i moved on to the next part of the tutorial which is about how to move the player.
 
 Moving the player
+
 learned how to move the sphere (the player) and knew how to script movements also used an AI tool to add jumping for the obstacles im gonna create later and to make the game more dynamic.
 
 Moving the camera
