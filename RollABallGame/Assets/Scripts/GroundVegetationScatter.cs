@@ -56,7 +56,14 @@ public class GroundVegetationScatter : MonoBehaviour
             return;
         }
 
-        Rebuild();
+        // Delay rebuild to avoid calling during validation
+        UnityEditor.EditorApplication.delayCall += () =>
+        {
+            if (this != null && generateInEditor && !Application.isPlaying)
+            {
+                Rebuild();
+            }
+        };
     }
 #endif
 

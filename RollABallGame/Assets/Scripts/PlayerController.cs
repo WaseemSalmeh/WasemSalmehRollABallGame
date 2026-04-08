@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
@@ -17,14 +15,10 @@ public class PlayerController : MonoBehaviour
     private float movementY;
     private bool isGrounded = true;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        count = 0;
-
-        SetCountText();
-        winTextObject.SetActive(false);
+        ResetRun();
     }
 
     void OnMove(InputValue movementValue)
@@ -37,11 +31,24 @@ public class PlayerController : MonoBehaviour
 
     void SetCountText()
     {
-        countText.text = "Count: " + count.ToString();
-        if (count >= 10)
+        if (countText != null)
         {
-            winTextObject.SetActive(true);
+            countText.text = "Count: " + count;
         }
+
+        if (winTextObject != null)
+        {
+            winTextObject.SetActive(count >= 11);
+        }
+    }
+
+    public void ResetRun()
+    {
+        count = 0;
+        movementX = 0f;
+        movementY = 0f;
+        isGrounded = true;
+        SetCountText();
     }
 
     void OnJump(InputValue jumpValue)
@@ -63,6 +70,15 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         isGrounded = true;
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            // Destroy the current object
+            Destroy(gameObject);
+            // Update the winText to display "You Lose!"
+            winTextObject.gameObject.SetActive(true);
+            winTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose!";
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -70,7 +86,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("PickUp"))
         {
             other.gameObject.SetActive(false);
-            count = count + 1;
+            count++;
 
             SetCountText();
         }
