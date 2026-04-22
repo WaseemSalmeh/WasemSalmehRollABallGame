@@ -87,6 +87,11 @@ public class PlayerFallReset : MonoBehaviour
         }
     }
 
+    public void ResetLevelState()
+    {
+        ResetLevel();
+    }
+
     private void ResetLevel()
     {
         resetCooldownRemaining = ResetCooldownSeconds;
